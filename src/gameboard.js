@@ -16,6 +16,7 @@ export default class Gameboard {
       "patrolboat",
     ];
     this.placedShips = [];
+    this.positions = new Object();
   }
 
   createBoard() {
@@ -35,16 +36,35 @@ export default class Gameboard {
   positionShip(row, column, axis, shipType) {
     let ship = new Ship(shipType);
     let board = this.board;
+    let position = [];
 
+    // test to make sure we can actually place a ship in squares
+    for (let index = 0; index < ship.length; index++) {
+      if (axis == "horizontal" && board[row][column + index] !== null) {
+        throw new Error("Ship already placed here");
+      } else if (axis == "vertical" && board[row + index][column] !== null) {
+        throw new Error("Ship already placed here");
+      }
+    }
+
+    // if squares are empty, place ship horizontally or vertically
     for (let index = 0; index < ship.length; index++) {
       if (axis == "horizontal") {
+        position.push([row, column + index]);
         board[row][column + index] = shipType;
       } else if (axis == "vertical") {
+        position.push([row + index, column]);
         board[row + index][column] = shipType;
       }
     }
+
+    this.unplacedShips.pop(shipType);
+    this.placedShips.push(shipType);
+    this.positions.shipType = position;
+
+    return position;
   }
 }
 
-const board = new Gameboard();
-board.positionShip(0, 0, "horizontal", "patrolboat");
+// const board = new Gameboard();
+// board.positionShip(1, 2, "horizontal", "patrolboat");

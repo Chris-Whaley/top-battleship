@@ -8,6 +8,21 @@ it("We can check if the player called the class constructor", () => {
 });
 
 it("We can check if the player called a method on the class instance", () => {
-  const Gameboard = new Gameboard();
-  expect(Gameboard.createBoard()).not.toBeUndefined();
+  const gameboard = new Gameboard();
+  expect(gameboard.createBoard()).not.toBeUndefined();
+});
+
+it("The player should be able to position a new ship on the board", () => {
+  const gameboard = new Gameboard();
+  expect(
+    gameboard.positionShip(0, 0, "horizontal", "patrolboat")
+  ).toContainEqual([0, 0]);
+});
+
+it("The game should throw an error when a player tries to place a ship in a spot where there is already another ship", () => {
+  const gameboard = new Gameboard();
+  gameboard.positionShip(0, 0, "horizontal", "patrolboat");
+  expect(() => {
+    gameboard.positionShip(0, 1, "horizontal", "carrier");
+  }).toThrow();
 });
