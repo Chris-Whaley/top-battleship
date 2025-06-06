@@ -47,6 +47,11 @@ export default class Gameboard {
       }
     }
 
+    // can't place ship that extends past gameboard edge
+    if (row + ship.length >= 10 || column + ship.length >= 10) {
+      throw new Error("Attempting to place ship off the gameboard");
+    }
+
     // if squares are empty, place ship horizontally or vertically
     for (let index = 0; index < ship.length; index++) {
       if (axis == "horizontal") {
@@ -60,11 +65,11 @@ export default class Gameboard {
 
     this.unplacedShips.pop(shipType);
     this.placedShips.push(shipType);
-    this.positions.shipType = position;
+    this.positions[shipType] = position;
 
     return position;
   }
 }
 
-// const board = new Gameboard();
+const board = new Gameboard();
 // board.positionShip(1, 2, "horizontal", "patrolboat");

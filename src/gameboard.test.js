@@ -26,3 +26,10 @@ it("The game should throw an error when a player tries to place a ship in a spot
     gameboard.positionShip(0, 1, "horizontal", "carrier");
   }).toThrow();
 });
+
+it("The game should throw an error when a player tries to place a ship that extends past the gameboard edge", () => {
+  const gameboard = new Gameboard();
+  expect(() => {
+    gameboard.positionShip(0, 9, "horizontal", "patrolboat");
+  }).toThrow();
+});
