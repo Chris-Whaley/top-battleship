@@ -18,3 +18,10 @@ it("We can check if the player can place a ship", () => {
     player.gameboard.positionShip(0, 0, "horizontal", "patrolboat")
   ).toContainEqual([0, 0]);
 });
+
+it("Player places ship, and respective ship is hit by opponent", () => {
+  const player = new Player();
+  player.gameboard.positionShip(0, 0, "horizontal", "patrolboat");
+  player.gameboard.receiveAttack(0, 0);
+  expect(player.gameboard.positions["patrolboat"].hits).toBe(1);
+});

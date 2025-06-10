@@ -78,6 +78,7 @@ export default class Gameboard {
     // is there a ship here
     if (this.board[row][column] !== null) {
       ship = this.board[row][column];
+      this.positions[ship].hit();
     } else {
       ship = "MISS!";
     }
@@ -89,5 +90,6 @@ export default class Gameboard {
   }
 }
 
-// const board = new Gameboard();
-// board.positionShip(1, 2, "horizontal", "patrolboat");
+const board = new Gameboard();
+board.positionShip(0, 0, "horizontal", "patrolboat");
+board.receiveAttack(0, 0);
