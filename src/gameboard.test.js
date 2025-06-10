@@ -41,3 +41,15 @@ it("The game should throw an error when a player tries to place a ship that's al
     gameboard.positionShip(4, 4, "horizontal", "patrolboat");
   }).toThrow();
 });
+
+it("The game should return ship type when correctly hit", () => {
+  const gameboard = new Gameboard();
+  gameboard.positionShip(0, 0, "horizontal", "patrolboat");
+  expect(gameboard.receiveAttack(0, 0)).toBe("patrolboat");
+});
+
+it("The game should return MISS! when attack doesn't hit a ship", () => {
+  const gameboard = new Gameboard();
+  gameboard.positionShip(0, 0, "horizontal", "patrolboat");
+  expect(gameboard.receiveAttack(4, 4)).toBe("MISS!");
+});

@@ -30,7 +30,6 @@ export default class Gameboard {
 
   positionShip(row, column, axis, shipType) {
     let ship = new Ship(shipType);
-    let board = this.board;
     let position = [];
 
     // make sure we haven't already placed this ship
@@ -40,9 +39,12 @@ export default class Gameboard {
 
     // make sure we can't place a ship in a square that already has another ship
     for (let index = 0; index < ship.length; index++) {
-      if (axis == "horizontal" && board[row][column + index] !== null) {
+      if (axis == "horizontal" && this.board[row][column + index] !== null) {
         throw new Error("Ship already placed here");
-      } else if (axis == "vertical" && board[row + index][column] !== null) {
+      } else if (
+        axis == "vertical" &&
+        this.board[row + index][column] !== null
+      ) {
         throw new Error("Ship already placed here");
       }
     }
@@ -56,18 +58,34 @@ export default class Gameboard {
     for (let index = 0; index < ship.length; index++) {
       if (axis == "horizontal") {
         position.push([row, column + index]);
-        board[row][column + index] = shipType;
+        this.board[row][column + index] = shipType;
       } else if (axis == "vertical") {
         position.push([row + index, column]);
-        board[row + index][column] = shipType;
+        this.board[row + index][column] = shipType;
       }
     }
 
     this.unplacedShips.pop(shipType);
     this.placedShips.add(shipType);
-    this.positions[shipType] = position;
+    ship.positions = position;
+    this.positions[shipType] = ship;
 
     return position;
+  }
+
+  receiveAttack(row, column) {
+    let ship;
+    // is there a ship here
+    if (this.board[row][column] !== null) {
+      ship = this.board[row][column];
+    } else {
+      ship = "MISS!";
+    }
+
+    // if so, what kind
+    // add the hit to the class instance within this.positions
+    // is it sunk?
+    return ship;
   }
 }
 
