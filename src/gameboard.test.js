@@ -33,3 +33,11 @@ it("The game should throw an error when a player tries to place a ship that exte
     gameboard.positionShip(0, 9, "horizontal", "patrolboat");
   }).toThrow();
 });
+
+it("The game should throw an error when a player tries to place a ship that's already been placed", () => {
+  const gameboard = new Gameboard();
+  gameboard.positionShip(0, 0, "horizontal", "patrolboat");
+  expect(() => {
+    gameboard.positionShip(4, 4, "horizontal", "patrolboat");
+  }).toThrow();
+});

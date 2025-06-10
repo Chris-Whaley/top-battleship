@@ -3,11 +3,6 @@ import Ship from "./ship.js";
 export default class Gameboard {
   constructor() {
     this.board = this.createBoard();
-    // this.carrier = new Ship("carrier");
-    // this.battleship = new Ship("battleship");
-    // this.destroyer = new Ship("destroyer");
-    // this.submarine = new Ship("submarine");
-    // this.patrolboat = new Ship("patrolboat");
     this.unplacedShips = [
       "carrier",
       "battleship",
@@ -15,7 +10,7 @@ export default class Gameboard {
       "submarine",
       "patrolboat",
     ];
-    this.placedShips = [];
+    this.placedShips = new Set();
     this.positions = new Object();
   }
 
@@ -38,7 +33,12 @@ export default class Gameboard {
     let board = this.board;
     let position = [];
 
-    // test to make sure we can actually place a ship in squares
+    // make sure we haven't already placed this ship
+    if (this.placedShips.has(shipType)) {
+      throw new Error("Ship has already been placed");
+    }
+
+    // make sure we can't place a ship in a square that already has another ship
     for (let index = 0; index < ship.length; index++) {
       if (axis == "horizontal" && board[row][column + index] !== null) {
         throw new Error("Ship already placed here");
@@ -64,12 +64,12 @@ export default class Gameboard {
     }
 
     this.unplacedShips.pop(shipType);
-    this.placedShips.push(shipType);
+    this.placedShips.add(shipType);
     this.positions[shipType] = position;
 
     return position;
   }
 }
 
-const board = new Gameboard();
+// const board = new Gameboard();
 // board.positionShip(1, 2, "horizontal", "patrolboat");
