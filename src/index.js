@@ -3,3 +3,8 @@ if (process.env.NODE_ENV !== "production") {
 } else if (process.env.NODE_ENV == "production") {
   console.log("Actually, we ARE in production");
 }
+
+import Player from "./player";
+
+player1 = new Player();
+player2 = new Player((realPlayer = false));

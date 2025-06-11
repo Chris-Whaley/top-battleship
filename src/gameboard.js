@@ -28,6 +28,25 @@ export default class Gameboard {
     return board;
   }
 
+  aiPositionShip() {
+    while (this.unplacedShips.length > 0) {
+      const randomRow = Math.floor(Math.random() * 10);
+      const randomColumn = Math.floor(Math.random() * 10);
+      const randomAxisChooser = Math.floor(Math.random() * 2);
+      const randomAxis = randomAxisChooser == 1 ? "vertical" : "horizontal";
+      try {
+        this.positionShip(
+          randomRow,
+          randomColumn,
+          randomAxis,
+          this.unplacedShips[0]
+        );
+      } catch (error) {
+        continue;
+      }
+    }
+  }
+
   positionShip(row, column, axis, shipType) {
     let ship = new Ship(shipType);
     let position = [];
@@ -50,7 +69,9 @@ export default class Gameboard {
     }
 
     // can't place ship that extends past gameboard edge
-    if (row + ship.length >= 10 || column + ship.length >= 10) {
+    if (row + ship.length >= 10 && axis == "vertical") {
+      throw new Error("Attempting to place ship off the gameboard");
+    } else if (column + ship.length >= 10 && axis == "horizontal") {
       throw new Error("Attempting to place ship off the gameboard");
     }
 
@@ -65,12 +86,12 @@ export default class Gameboard {
       }
     }
 
-    this.unplacedShips.pop(shipType);
+    this.unplacedShips = this.unplacedShips.filter((item) => item !== shipType);
     this.placedShips.add(shipType);
     ship.positions = position;
     this.positions[shipType] = ship;
 
-    return position;
+    return true;
   }
 
   receiveAttack(row, column) {
@@ -79,17 +100,21 @@ export default class Gameboard {
     if (this.board[row][column] !== null) {
       ship = this.board[row][column];
       this.positions[ship].hit();
+      return this.positions[ship].sunk;
     } else {
-      ship = "MISS!";
+      this.board[row][column] = "miss";
+      return "miss";
     }
 
     // if so, what kind
     // add the hit to the class instance within this.positions
     // is it sunk?
-    return ship;
   }
 }
 
 const board = new Gameboard();
-board.positionShip(0, 0, "horizontal", "patrolboat");
-board.receiveAttack(0, 0);
+// board.positionShip(0, 0, "horizontal", "patrolboat");
+// board.receiveAttack(4, 4);
+// board.receiveAttack(0, 0);
+// board.receiveAttack(0, 1);
+board.aiPositionShip();
