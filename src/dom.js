@@ -1,25 +1,23 @@
-// const playerGameboard = document.getElementById("playerGameboard");
-// const aiGameboard = document.getElementById("aiGameboard");
+const SQUARES_PER_ROW = 10;
+function createBoards(boardElement, boardType) {
+  boardElement.classList.add("gameboard");
+  boardElement.setAttribute("id", `${boardType}Gameboard`);
+  document.body.appendChild(boardElement);
 
-function createBoards(board, boardType) {
-  const bodyElement = document.body;
-  board.classList("gameboard");
-  board.setAttribute("id", `${boardType}Gameboard`);
-  bodyElement.appendChild(board);
+  createSquares(boardElement);
 }
 
 function createSquares(board) {
-  const boardType = board == "player" ? playerGameboard : aiGameboard;
-
   // create row (outer loop), and boxes (inner loop)
-  for (let index = 0; index < 10; index++) {
-    const row = document.createElement("div");
-    row.classList.add("row");
-    row.setAttribute("id", `row-${index}`);
-    boardType.appendChild(row);
+  for (let row = 0; row < SQUARES_PER_ROW; row++) {
+    for (let j = 0; j < SQUARES_PER_ROW; j++) {
+      const square = document.createElement("div");
+      square.classList.add("cell");
+      square.setAttribute("data-row", `${row}`);
+      square.setAttribute("data-column", `${j}`);
+      board.appendChild(square);
+    }
   }
-
-  return boardType;
 }
 
 export { createBoards, createSquares };
