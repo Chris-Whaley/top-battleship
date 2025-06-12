@@ -112,9 +112,9 @@ export default class Gameboard {
   }
 }
 
-const board = new Gameboard();
-// board.positionShip(0, 0, "horizontal", "patrolboat");
-// board.receiveAttack(4, 4);
-// board.receiveAttack(0, 0);
-// board.receiveAttack(0, 1);
-board.aiPositionShip();
+// const board = new Gameboard();
+// // board.positionShip(0, 0, "horizontal", "patrolboat");
+// // board.receiveAttack(4, 4);
+// // board.receiveAttack(0, 0);
+// // board.receiveAttack(0, 1);
+// board.aiPositionShip();
