@@ -5,11 +5,20 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 import Player from "./player.js";
+import { createBoards, createSquares } from "./dom.js";
 
+const playerGameboard = document.createElement("div");
+const aiGameboard = document.createElement("div");
+
+document.body.appendChild(playerGameboard);
+
+createBoards(playerGameboard, "player");
+
+// createBoards(playerGameboard);
 // const player = new Player();
 // const ai = new Player(false);
 
 // console.log(player.gameboard);
 // console.log(ai.gameboard);
 
-export { Player };
+export { Player, createSquares };
