@@ -5,13 +5,15 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 import Player from "./player.js";
-import { createBoards, createSquares } from "./dom.js";
+import { createDOMLayout, createSquares } from "./dom.js";
 
-const playerGameboard = document.createElement("div");
-const aiGameboard = document.createElement("div");
+createDOMLayout();
 
-createBoards(playerGameboard, "player");
-createBoards(aiGameboard, "ai");
+const playerGameboard = document.getElementById("playerGameboard");
+const aiGameboard = document.getElementById("aiGameboard");
+
+createSquares(playerGameboard);
+createSquares(aiGameboard);
 
 const player = new Player();
 const ai = new Player(false);

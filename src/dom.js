@@ -1,10 +1,24 @@
 const SQUARES_PER_ROW = 10;
-function createBoards(boardElement, boardType) {
-  boardElement.classList.add("gameboard");
-  boardElement.setAttribute("id", `${boardType}Gameboard`);
-  document.body.appendChild(boardElement);
 
-  createSquares(boardElement);
+function createDOMLayout() {
+  const header = document.createElement("div");
+  const content = document.createElement("div");
+  const playerGameboard = document.createElement("div");
+  const aiGameboard = document.createElement("div");
+
+  // assign classes
+  header.classList.add("header");
+  content.classList.add("content");
+  playerGameboard.classList.add("gameboard");
+  playerGameboard.setAttribute("id", "playerGameboard");
+  aiGameboard.classList.add("gameboard");
+  aiGameboard.setAttribute("id", "aiGameboard");
+
+  // set DOM structure
+  document.body.appendChild(header);
+  document.body.appendChild(content);
+  content.appendChild(playerGameboard);
+  content.appendChild(aiGameboard);
 }
 
 function createSquares(board) {
@@ -20,4 +34,4 @@ function createSquares(board) {
   }
 }
 
-export { createBoards, createSquares };
+export { createDOMLayout, createSquares };
