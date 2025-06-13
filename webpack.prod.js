@@ -8,12 +8,12 @@ module.exports = merge(common, {
   output: {
     clean: true,
   },
-  plugins: [new MiniCssExtractPlugin({ filename: "css/[name].css" })],
+  plugins: [new MiniCssExtractPlugin({ filename: "style.css" })],
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },

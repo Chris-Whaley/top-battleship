@@ -34,4 +34,17 @@ function createSquares(board) {
   }
 }
 
-export { createDOMLayout, createSquares };
+function listeners() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((square) => {
+    square.addEventListener("click", () => {
+      console.log(
+        `row: ${square.getAttribute("data-row")}, column: ${square.getAttribute(
+          "data-column"
+        )}`
+      );
+    });
+  });
+}
+
+export { createDOMLayout, createSquares, listeners };

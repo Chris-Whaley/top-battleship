@@ -1,5 +1,28 @@
+.content {
+  height: 50vh;
+  display: grid;
+  grid-template-columns: 40vw 20vw 40vw;
+  /* grid-template-areas: " playerGameboard aiGameboard"; */
+}
+
 .gameboard {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+}
+
+#playerGameboard {
+  /* width: 50vw; */
+  /* grid-area: playerGameboard; */
+  grid-column: 1;
+}
+
+#aiGameboard {
+  /* width: 50vw; */
+  /* grid-area: aiGameboard; */
+  grid-column: 3;
+}
+
+.cell {
+  border: 1px solid darkgrey;
 }
