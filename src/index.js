@@ -11,7 +11,7 @@ import {
   createDOMLayout,
   createSquares,
   createShips,
-  listeners,
+  attackEvent,
 } from "./dom.js";
 
 createDOMLayout();
@@ -21,9 +21,9 @@ const aiGameboard = document.getElementById("aiGameboard");
 
 createSquares(playerGameboard);
 createSquares(aiGameboard);
-listeners();
+attackEvent();
 
-const player = new Player();
+const player = new Player(false);
 const ai = new Player(false);
 
 // const carrier = document.createElement("div");
@@ -33,16 +33,24 @@ const ai = new Player(false);
 // const patrolboat = document.createElement("div");
 
 // const carrierShip = createShips("carrier", 5);
-const carrierShip = new Ship("carrier");
-const battleShip = new Ship("battleship");
-const destroyer = new Ship("destroyer");
-const submarine = new Ship("submarine");
-const patrolboat = new Ship("patrolboat");
+// Player ships
+const carrierPlayer = new Ship("carrier");
+const battlePlayer = new Ship("battleship");
+const destroyerPlayer = new Ship("destroyer");
+const submarinePlayer = new Ship("submarine");
+const patrolboatPlayer = new Ship("patrolboat");
+// AI ships
+const carrierAI = new Ship("carrier");
+const battleAI = new Ship("battleship");
+const destroyerAI = new Ship("destroyer");
+const submarineAI = new Ship("submarine");
+const patrolboatAI = new Ship("patrolboat");
 
-createShips(carrierShip.shipType, carrierShip.length);
-createShips(battleShip.shipType, battleShip.length);
-createShips(destroyer.shipType, destroyer.length);
-createShips(submarine.shipType, submarine.length);
-createShips(patrolboat.shipType, patrolboat.length);
+// createShips(carrierPlayer.shipType, carrierPlayer.length);
+// createShips(battlePlayer.shipType, battlePlayer.length);
+// createShips(destroyerPlayer.shipType, destroyerPlayer.length);
+// createShips(submarinePlayer.shipType, submarinePlayer.length);
+// createShips(patrolboatPlayer.shipType, patrolboatPlayer.length);
 
+console.log(player.gameboard);
 export { Player, createSquares };

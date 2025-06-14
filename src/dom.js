@@ -43,6 +43,7 @@ function createShips(shipType, shipLength) {
 
   ship.setAttribute("id", `${shipType}`);
   ship.classList.add("ship");
+  ship.setAttribute("draggable", "true");
 
   // dock all ships in shipyard
   for (let index = 0; index < shipLength; index++) {
@@ -53,24 +54,20 @@ function createShips(shipType, shipLength) {
   shipyard.appendChild(ship);
 }
 
-function listeners() {
+function attackEvent() {
   const cells = document.querySelectorAll(".cell");
+  let row;
+  let column;
+  let board;
   cells.forEach((square) => {
     square.addEventListener("click", () => {
-      console.log(
-        `row: ${square.getAttribute("data-row")}, column: ${square.getAttribute(
-          "data-column"
-        )}`
-      );
-    });
-  });
-
-  const ships = document.querySelectorAll(".ship");
-  ships.forEach((ship) => {
-    ship.addEventListener("dragover", (ev) => {
-      ev.dataTransfer.dropEffect = "move";
+      row = square.getAttribute("data-row");
+      column = square.getAttribute("data-column");
+      board = square.parentElement.id;
+      console.log(square.parentElement.id);
+      console.log(`[${row}, ${column}]`);
     });
   });
 }
 
-export { createDOMLayout, createSquares, createShips, listeners };
+export { createDOMLayout, createSquares, createShips, attackEvent };
