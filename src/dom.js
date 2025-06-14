@@ -5,6 +5,7 @@ function createDOMLayout() {
   const content = document.createElement("div");
   const playerGameboard = document.createElement("div");
   const aiGameboard = document.createElement("div");
+  const shipyard = document.createElement("div");
 
   // assign classes
   header.classList.add("header");
@@ -13,11 +14,13 @@ function createDOMLayout() {
   playerGameboard.setAttribute("id", "playerGameboard");
   aiGameboard.classList.add("gameboard");
   aiGameboard.setAttribute("id", "aiGameboard");
+  shipyard.setAttribute("id", "shipyard");
 
   // set DOM structure
   document.body.appendChild(header);
   document.body.appendChild(content);
   content.appendChild(playerGameboard);
+  content.appendChild(shipyard);
   content.appendChild(aiGameboard);
 }
 
@@ -34,6 +37,22 @@ function createSquares(board) {
   }
 }
 
+function createShips(shipType, shipLength) {
+  const shipyard = document.getElementById("shipyard");
+  const ship = document.createElement("div");
+
+  ship.setAttribute("id", `${shipType}`);
+  ship.classList.add("ship");
+
+  // dock all ships in shipyard
+  for (let index = 0; index < shipLength; index++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    ship.appendChild(cell);
+  }
+  shipyard.appendChild(ship);
+}
+
 function listeners() {
   const cells = document.querySelectorAll(".cell");
   cells.forEach((square) => {
@@ -47,4 +66,4 @@ function listeners() {
   });
 }
 
-export { createDOMLayout, createSquares, listeners };
+export { createDOMLayout, createSquares, createShips, listeners };

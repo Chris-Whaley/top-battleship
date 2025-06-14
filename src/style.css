@@ -17,6 +17,13 @@
   grid-column: 1;
 }
 
+#shipyard {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
 #aiGameboard {
   /* width: 50vw; */
   /* grid-area: aiGameboard; */
@@ -25,4 +32,15 @@
 
 .cell {
   border: 1px solid darkgrey;
+}
+
+.ship {
+  display: grid;
+}
+
+#carrier {
+  grid-column: 2;
+  grid-row: 1 / 6;
+  background-color: lightcoral;
+  opacity: 0.75;
 }
