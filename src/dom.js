@@ -54,20 +54,4 @@ function createShips(shipType, shipLength) {
   shipyard.appendChild(ship);
 }
 
-function attackEvent() {
-  const cells = document.querySelectorAll(".cell");
-  let row;
-  let column;
-  let board;
-  cells.forEach((square) => {
-    square.addEventListener("click", () => {
-      row = square.getAttribute("data-row");
-      column = square.getAttribute("data-column");
-      board = square.parentElement.id;
-      console.log(square.parentElement.id);
-      console.log(`[${row}, ${column}]`);
-    });
-  });
-}
-
-export { createDOMLayout, createSquares, createShips, attackEvent };
+export { createDOMLayout, createSquares, createShips };
