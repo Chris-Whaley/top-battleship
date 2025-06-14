@@ -44,3 +44,29 @@
   background-color: lightcoral;
   opacity: 0.75;
 }
+
+#battleship {
+  grid-column: 2;
+  grid-row: 7 / 11;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+
+#destroyer {
+  grid-column: 4;
+  grid-row: 1 / 4;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+#submarine {
+  grid-column: 4;
+  grid-row: 5 / 8;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+#patrolboat {
+  grid-column: 4;
+  grid-row: 9 / 11;
+  background-color: lightcoral;
+  opacity: 0.75;
+}

@@ -64,6 +64,13 @@ function listeners() {
       );
     });
   });
+
+  const ships = document.querySelectorAll(".ship");
+  ships.forEach((ship) => {
+    ship.addEventListener("dragover", (ev) => {
+      ev.dataTransfer.dropEffect = "move";
+    });
+  });
 }
 
 export { createDOMLayout, createSquares, createShips, listeners };

@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 import "./style.css";
+import Ship from "./ship.js";
 import Player from "./player.js";
 import {
   createDOMLayout,
@@ -31,6 +32,17 @@ const ai = new Player(false);
 // const submarine = document.createElement("div");
 // const patrolboat = document.createElement("div");
 
-const carrierShip = createShips("carrier", 5);
+// const carrierShip = createShips("carrier", 5);
+const carrierShip = new Ship("carrier");
+const battleShip = new Ship("battleship");
+const destroyer = new Ship("destroyer");
+const submarine = new Ship("submarine");
+const patrolboat = new Ship("patrolboat");
+
+createShips(carrierShip.shipType, carrierShip.length);
+createShips(battleShip.shipType, battleShip.length);
+createShips(destroyer.shipType, destroyer.length);
+createShips(submarine.shipType, submarine.length);
+createShips(patrolboat.shipType, patrolboat.length);
 
 export { Player, createSquares };
