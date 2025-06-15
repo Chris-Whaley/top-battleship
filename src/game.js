@@ -1,3 +1,10 @@
+import {
+  createDOMLayout,
+  createSquares,
+  createShips,
+  recordAttack,
+} from "./dom.js";
+
 export default class PlayGame {
   constructor(player, ai) {
     this.player = player;
@@ -10,22 +17,22 @@ export default class PlayGame {
     const cells = document.querySelectorAll(".cell");
     let row;
     let column;
-    let board;
+    let boardHTML;
     let gameboardTurn = this.turnIsPlayer ? this.player : this.ai;
 
     cells.forEach((square) => {
       square.addEventListener("click", () => {
         row = square.getAttribute("data-row");
         column = square.getAttribute("data-column");
-        board = square.parentElement.id;
+        boardHTML = square.parentElement.id;
         // console.log(square.parentElement.id);
         console.log(`[${row}, ${column}]`);
-        this.evaluateAttack(row, column, gameboardTurn);
+        this.evaluateAttack(row, column, gameboardTurn, boardHTML);
       });
     });
   }
 
-  evaluateAttack(row, column, turn) {
+  evaluateAttack(row, column, turn, boardHTML) {
     let hitOrMiss;
     let ship;
 
@@ -36,10 +43,15 @@ export default class PlayGame {
       hitOrMiss = "miss";
     }
     console.log(hitOrMiss);
+
+    // TODO elinate ability to click squares more than once
     if (hitOrMiss == "hit") {
       const shipHit = turn.gameboard.positions[ship];
       shipHit.hit();
       console.log(shipHit);
     }
+
+    // DOM events
+    recordAttack(row, column, boardHTML, hitOrMiss);
   }
 }
