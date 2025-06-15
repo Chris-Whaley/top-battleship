@@ -11,32 +11,35 @@ export default class PlayGame {
     let row;
     let column;
     let board;
-    let gameboard = this.turnIsPlayer
-      ? this.player.gameboard
-      : this.ai.gameboard;
+    let gameboardTurn = this.turnIsPlayer ? this.player : this.ai;
 
     cells.forEach((square) => {
       square.addEventListener("click", () => {
         row = square.getAttribute("data-row");
         column = square.getAttribute("data-column");
         board = square.parentElement.id;
-        console.log(square.parentElement.id);
+        // console.log(square.parentElement.id);
         console.log(`[${row}, ${column}]`);
-        this.evaluateAttack(row, column, gameboard);
+        this.evaluateAttack(row, column, gameboardTurn);
       });
     });
   }
 
-  evaluateAttack(row, column, gameboard) {
+  evaluateAttack(row, column, turn) {
     let hitOrMiss;
     let ship;
 
-    if (gameboard.board[row][column] !== null) {
-      ship = gameboard.board[row][column];
+    if (turn.gameboard.board[row][column] !== null) {
+      ship = turn.gameboard.board[row][column];
       hitOrMiss = "hit";
     } else {
       hitOrMiss = "miss";
     }
     console.log(hitOrMiss);
+    if (hitOrMiss == "hit") {
+      const shipHit = turn.gameboard.positions[ship];
+      shipHit.hit();
+      console.log(shipHit);
+    }
   }
 }
