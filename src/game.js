@@ -14,7 +14,11 @@ export default class PlayGame {
 
   attackEvent() {
     console.log(this.player.gameboard);
-    const cells = document.querySelectorAll(".cell");
+    console.log(this.ai.gameboard);
+    const cells = document.querySelectorAll("#playerGameboard > .cell");
+    const cellOccupied = document.querySelectorAll(
+      "playerGameboard > .cell-occupied"
+    );
     let row;
     let column;
     let boardHTML;
@@ -26,8 +30,11 @@ export default class PlayGame {
         column = square.getAttribute("data-column");
         boardHTML = square.parentElement.id;
         // console.log(square.parentElement.id);
+        console.log(square);
         console.log(`[${row}, ${column}]`);
+
         this.evaluateAttack(row, column, gameboardTurn, boardHTML);
+        // square.removeEventListener("click", handler);
       });
     });
   }
@@ -35,6 +42,13 @@ export default class PlayGame {
   evaluateAttack(row, column, turn, boardHTML) {
     let hitOrMiss;
     let ship;
+
+    // elinate ability to click squares more than once
+    if (turn.gameboard.squaresSelected.has(`${row}-${column}`)) {
+      return;
+    } else {
+      turn.gameboard.squaresSelected.add(`${row}-${column}`);
+    }
 
     if (turn.gameboard.board[row][column] !== null) {
       ship = turn.gameboard.board[row][column];
@@ -44,7 +58,6 @@ export default class PlayGame {
     }
     console.log(hitOrMiss);
 
-    // TODO elinate ability to click squares more than once
     if (hitOrMiss == "hit") {
       const shipHit = turn.gameboard.positions[ship];
       shipHit.hit();
