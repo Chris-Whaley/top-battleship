@@ -54,20 +54,20 @@ function createShips(shipType, shipLength) {
   shipyard.appendChild(ship);
 }
 
-function attackEvent() {
-  const cells = document.querySelectorAll(".cell");
-  let row;
-  let column;
-  let board;
-  cells.forEach((square) => {
-    square.addEventListener("click", () => {
-      row = square.getAttribute("data-row");
-      column = square.getAttribute("data-column");
-      board = square.parentElement.id;
-      console.log(square.parentElement.id);
-      console.log(`[${row}, ${column}]`);
-    });
-  });
+function recordAttack(row, column, board, hitOrMiss) {
+  const cell = document.querySelector(
+    `#${board} > div[data-row="${row}"][data-column="${column}"]`
+  );
+
+  // use so we can't select this square again
+  cell.removeAttribute("class", "cell");
+  cell.setAttribute("class", "cell-occupied");
+
+  if (hitOrMiss == "hit") {
+    cell.style.setProperty("background-color", "blue");
+  } else if (hitOrMiss == "miss") {
+    cell.style.setProperty("background-color", "red");
+  }
 }
 
-export { createDOMLayout, createSquares, createShips, attackEvent };
+export { createDOMLayout, createSquares, createShips, recordAttack };

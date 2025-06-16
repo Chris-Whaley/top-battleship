@@ -7,12 +7,8 @@ if (process.env.NODE_ENV !== "production") {
 import "./style.css";
 import Ship from "./ship.js";
 import Player from "./player.js";
-import {
-  createDOMLayout,
-  createSquares,
-  createShips,
-  attackEvent,
-} from "./dom.js";
+import PlayGame from "./game.js";
+import { createDOMLayout, createSquares, createShips } from "./dom.js";
 
 createDOMLayout();
 
@@ -21,7 +17,7 @@ const aiGameboard = document.getElementById("aiGameboard");
 
 createSquares(playerGameboard);
 createSquares(aiGameboard);
-attackEvent();
+// attackEvent();
 
 const player = new Player(false);
 const ai = new Player(false);
@@ -52,5 +48,7 @@ const patrolboatAI = new Ship("patrolboat");
 // createShips(submarinePlayer.shipType, submarinePlayer.length);
 // createShips(patrolboatPlayer.shipType, patrolboatPlayer.length);
 
-console.log(player.gameboard);
+const game = new PlayGame(player, ai);
+game.attackEvent();
+
 export { Player, createSquares };
