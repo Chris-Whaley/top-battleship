@@ -49,6 +49,7 @@ const patrolboatAI = new Ship("patrolboat");
 // createShips(patrolboatPlayer.shipType, patrolboatPlayer.length);
 
 const game = new PlayGame(player, ai);
-game.attackEvent();
+// game.attackEvent();
+game.playerChoice();
 
-export { Player, createSquares };
+// export { Player, createSquares };
