@@ -37,6 +37,7 @@ export default class PlayGame {
     } else {
       this.aiChoice();
     }
+    return;
   }
 
   aiChoice() {
@@ -44,12 +45,13 @@ export default class PlayGame {
     const column = Math.floor(Math.random() * 10);
     const turn = this.ai;
     const boardHTML = "aiGameboard";
-    console.log("in aiChoice");
+
     if (this.evaluateAttack(row, column, turn, boardHTML) == false) {
       this.aiChoice();
     } else {
       this.evaluateAttack(row, column, turn, boardHTML);
     }
+    return;
   }
 
   evaluateAttack(row, column, turn, boardHTML) {
@@ -73,13 +75,24 @@ export default class PlayGame {
     if (hitOrMiss == "hit") {
       const shipHit = turn.gameboard.positions[ship];
       shipHit.hit();
+      console.log(shipHit);
+      // are all ships sunk?
+      if (shipHit.isSunk()) {
+        console.log(`${shipHit.shipType} is sunk!`);
+        turn.gameboard.sunkShips.add(shipHit.shipType);
+      }
     }
 
     // // DOM events
     recordAttack(row, column, boardHTML, hitOrMiss);
 
-    // switch turns
-    this.turnIsPlayer = !this.turnIsPlayer;
-    this.turn();
+    // switch turns unless player or AI wins
+    if (turn.gameboard.sunkShips.size == 5) {
+      console.log(turn.name);
+      return;
+    } else {
+      this.turnIsPlayer = !this.turnIsPlayer;
+      this.turn();
+    }
   }
 }

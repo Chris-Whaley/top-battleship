@@ -13,6 +13,7 @@ export default class Gameboard {
     this.placedShips = new Set();
     this.positions = new Object();
     this.squaresSelected = new Set();
+    this.sunkShips = new Set();
   }
 
   createBoard() {
