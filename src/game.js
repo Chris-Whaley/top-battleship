@@ -1,4 +1,4 @@
-import { recordAttack } from "./dom.js";
+import { recordAttack, createModal } from "./dom.js";
 
 export default class PlayGame {
   constructor(player, ai) {
@@ -88,11 +88,16 @@ export default class PlayGame {
 
     // switch turns unless player or AI wins
     if (turn.gameboard.sunkShips.size == 5) {
-      console.log(turn.name);
-      return;
+      this.endGame();
     } else {
       this.turnIsPlayer = !this.turnIsPlayer;
       this.turn();
     }
+  }
+
+  endGame() {
+    const winner = this.player ? "Player" : "AI";
+    console.log(`${winner} WINS!`);
+    createModal(winner);
   }
 }

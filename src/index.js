@@ -25,8 +25,8 @@ const ai = new Player(false);
 // Create and start game
 const game = new PlayGame(player, ai);
 game.turn();
+console.log(game.player.gameboard);
 
-// TODO: evaluate when a ship is sunk
 // TODO: make AI guess more accurate when it hits a ship
 // TODO: create modal for player to enter name
 // TODO: create draggable ships

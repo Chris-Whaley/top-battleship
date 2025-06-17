@@ -70,4 +70,31 @@ function recordAttack(row, column, board, hitOrMiss) {
   }
 }
 
-export { createDOMLayout, createSquares, createShips, recordAttack };
+function createModal(winner) {
+  const modal = document.createElement("div");
+  const modalContent = document.createElement("div");
+  const newGameButton = document.createElement("button");
+
+  modal.setAttribute("id", "myModal");
+  modal.classList.add("modal");
+  modalContent.classList.add("modal-content");
+  newGameButton.setAttribute("id", "new-game");
+
+  document.body.appendChild(modal);
+  modal.appendChild(modalContent);
+  modalContent.appendChild(newGameButton);
+
+  modal.style.display = "block";
+
+  newGameButton.onclick = function () {
+    modal.style.display = "none";
+  };
+}
+
+export {
+  createDOMLayout,
+  createSquares,
+  createShips,
+  recordAttack,
+  createModal,
+};
