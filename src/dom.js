@@ -70,7 +70,7 @@ function recordAttack(row, column, board, hitOrMiss) {
   }
 }
 
-function createModal(winner) {
+function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
   const modal = document.createElement("div");
   const modalContent = document.createElement("div");
   const newGameButton = document.createElement("button");
@@ -88,6 +88,7 @@ function createModal(winner) {
 
   newGameButton.onclick = function () {
     modal.style.display = "none";
+    location.reload();
   };
 }
 
