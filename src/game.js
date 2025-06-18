@@ -16,7 +16,7 @@ export default class PlayGame {
   }
 
   playerChoice() {
-    const cells = document.querySelectorAll("#playerGameboard > .cell");
+    const cells = document.querySelectorAll("#aiGameboard > .cell");
     let row;
     let column;
     let boardHTML;
@@ -26,60 +26,50 @@ export default class PlayGame {
         row = square.getAttribute("data-row");
         column = square.getAttribute("data-column");
         boardHTML = square.parentElement.id;
-        this.attackEvent(row, column, this.player, boardHTML);
+        this.evaluateAttack(row, column, this.ai, boardHTML);
       });
     });
   }
 
-  attackEvent(row, column, gameboardTurn, boardHTML) {
-    if (this.turnIsPlayer) {
-      this.evaluateAttack(row, column, gameboardTurn, boardHTML);
-    } else {
-      this.aiChoice();
-    }
-    return;
-  }
-
   aiChoice() {
-    const row = Math.floor(Math.random() * 10);
-    const column = Math.floor(Math.random() * 10);
-    const turn = this.ai;
-    const boardHTML = "aiGameboard";
+    let row = Math.floor(Math.random() * 10);
+    let column = Math.floor(Math.random() * 10);
+    const board = this.player;
+    const boardHTML = "playerGameboard";
 
-    if (this.evaluateAttack(row, column, turn, boardHTML) == false) {
-      this.aiChoice();
-    } else {
-      this.evaluateAttack(row, column, turn, boardHTML);
+    while (board.gameboard.squaresSelected.has(`${row}-${column}`)) {
+      row = Math.floor(Math.random() * 10);
+      column = Math.floor(Math.random() * 10);
     }
-    return;
+
+    this.evaluateAttack(row, column, board, boardHTML);
   }
 
-  evaluateAttack(row, column, turn, boardHTML) {
+  evaluateAttack(row, column, gameboardAttacked, boardHTML) {
     let hitOrMiss;
     let ship;
 
     // elinate ability to click squares more than once
-    if (turn.gameboard.squaresSelected.has(`${row}-${column}`)) {
+    if (gameboardAttacked.gameboard.squaresSelected.has(`${row}-${column}`)) {
       return false;
     } else {
-      turn.gameboard.squaresSelected.add(`${row}-${column}`);
+      gameboardAttacked.gameboard.squaresSelected.add(`${row}-${column}`);
     }
 
-    if (turn.gameboard.board[row][column] !== null) {
-      ship = turn.gameboard.board[row][column];
+    if (gameboardAttacked.gameboard.board[row][column] !== null) {
+      ship = gameboardAttacked.gameboard.board[row][column];
       hitOrMiss = "hit";
     } else {
       hitOrMiss = "miss";
     }
 
     if (hitOrMiss == "hit") {
-      const shipHit = turn.gameboard.positions[ship];
+      const shipHit = gameboardAttacked.gameboard.positions[ship];
       shipHit.hit();
-      console.log(shipHit);
       // are all ships sunk?
       if (shipHit.isSunk()) {
         console.log(`${shipHit.shipType} is sunk!`);
-        turn.gameboard.sunkShips.add(shipHit.shipType);
+        gameboardAttacked.gameboard.sunkShips.add(shipHit.shipType);
       }
     }
 
@@ -87,7 +77,7 @@ export default class PlayGame {
     recordAttack(row, column, boardHTML, hitOrMiss);
 
     // switch turns unless player or AI wins
-    if (turn.gameboard.sunkShips.size == 5) {
+    if (gameboardAttacked.gameboard.sunkShips.size == 5) {
       this.endGame();
     } else {
       this.turnIsPlayer = !this.turnIsPlayer;
@@ -96,8 +86,12 @@ export default class PlayGame {
   }
 
   endGame() {
-    const winner = this.player ? "Player" : "AI";
+    const winner = this.turnIsPlayer ? "Player" : "AI";
+    const winnerClass = this.turnIsPlayer ? this.player : this.ai;
+    const winnerNumberOfMoves = winnerClass.gameboard.squaresSelected.size;
+    const loserClass = this.turnIsPlayer ? this.ai : this.player;
+    const loserNumberOfMoves = loserClass.gameboard.squaresSelected.size;
     console.log(`${winner} WINS!`);
-    createModal(winner);
+    createModal(winner, winnerNumberOfMoves, loserNumberOfMoves);
   }
 }
