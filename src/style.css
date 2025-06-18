@@ -1,8 +1,37 @@
+body {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .content {
-  height: 50vh;
+  height: 80vh;
   display: grid;
-  grid-template-columns: 40vw 20vw 40vw;
-  /* grid-template-areas: " playerGameboard aiGameboard"; */
+  grid-template-columns: 40% 20% 40%;
+  grid-template-rows: 100%;
+}
+
+.content-side {
+  height: 100%;
+}
+
+#player-side {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+#shipyard {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+#ai-side {
+  grid-column: 3;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
 }
 
 .gameboard {
@@ -14,20 +43,13 @@
 #playerGameboard {
   /* width: 50vw; */
   /* grid-area: playerGameboard; */
-  grid-column: 1;
-}
-
-#shipyard {
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-row: 2;
 }
 
 #aiGameboard {
   /* width: 50vw; */
   /* grid-area: aiGameboard; */
-  grid-column: 3;
+  grid-row: 2;
 }
 
 .cell {
@@ -88,7 +110,7 @@
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 50% auto; /* 15% from the top and centered */
+  margin: 50% auto; /* 50% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
