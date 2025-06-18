@@ -13,6 +13,7 @@ export default class Gameboard {
     this.placedShips = new Set();
     this.positions = new Object();
     this.squaresSelected = new Set();
+    this.sunkShips = new Set();
   }
 
   createBoard() {
@@ -106,16 +107,5 @@ export default class Gameboard {
       this.board[row][column] = "miss";
       return "miss";
     }
-
-    // if so, what kind
-    // add the hit to the class instance within this.positions
-    // is it sunk?
   }
 }
-
-// const board = new Gameboard();
-// // board.positionShip(0, 0, "horizontal", "patrolboat");
-// // board.receiveAttack(4, 4);
-// // board.receiveAttack(0, 0);
-// // board.receiveAttack(0, 1);
-// board.aiPositionShip();

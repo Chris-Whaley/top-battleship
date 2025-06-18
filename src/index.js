@@ -5,50 +5,29 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 import "./style.css";
-import Ship from "./ship.js";
 import Player from "./player.js";
 import PlayGame from "./game.js";
-import { createDOMLayout, createSquares, createShips } from "./dom.js";
+import { createDOMLayout, createSquares } from "./dom.js";
 
+// Set up html containers
 createDOMLayout();
 
+// Feed each html gameboard into a function to create the grid
 const playerGameboard = document.getElementById("playerGameboard");
 const aiGameboard = document.getElementById("aiGameboard");
-
 createSquares(playerGameboard);
 createSquares(aiGameboard);
-// attackEvent();
 
+// Create players
 const player = new Player(false);
 const ai = new Player(false);
 
-// const carrier = document.createElement("div");
-// const battleship = document.createElement("div");
-// const destroyer = document.createElement("div");
-// const submarine = document.createElement("div");
-// const patrolboat = document.createElement("div");
-
-// const carrierShip = createShips("carrier", 5);
-// Player ships
-const carrierPlayer = new Ship("carrier");
-const battlePlayer = new Ship("battleship");
-const destroyerPlayer = new Ship("destroyer");
-const submarinePlayer = new Ship("submarine");
-const patrolboatPlayer = new Ship("patrolboat");
-// AI ships
-const carrierAI = new Ship("carrier");
-const battleAI = new Ship("battleship");
-const destroyerAI = new Ship("destroyer");
-const submarineAI = new Ship("submarine");
-const patrolboatAI = new Ship("patrolboat");
-
-// createShips(carrierPlayer.shipType, carrierPlayer.length);
-// createShips(battlePlayer.shipType, battlePlayer.length);
-// createShips(destroyerPlayer.shipType, destroyerPlayer.length);
-// createShips(submarinePlayer.shipType, submarinePlayer.length);
-// createShips(patrolboatPlayer.shipType, patrolboatPlayer.length);
-
+// Create and start game
 const game = new PlayGame(player, ai);
-game.attackEvent();
+game.turn();
+// console.log(game.player.gameboard);
+// console.log(game.ai.gameboard);
 
-export { Player, createSquares };
+// TODO: make AI guess more accurate when it hits a ship
+// TODO: create modal for player to enter name
+// TODO: create draggable ships

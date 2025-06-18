@@ -1,9 +1,4 @@
-import {
-  createDOMLayout,
-  createSquares,
-  createShips,
-  recordAttack,
-} from "./dom.js";
+import { recordAttack, createModal } from "./dom.js";
 
 export default class PlayGame {
   constructor(player, ai) {
@@ -12,59 +7,91 @@ export default class PlayGame {
     this.turnIsPlayer = true;
   }
 
-  attackEvent() {
-    console.log(this.player.gameboard);
-    console.log(this.ai.gameboard);
-    const cells = document.querySelectorAll("#playerGameboard > .cell");
-    const cellOccupied = document.querySelectorAll(
-      "playerGameboard > .cell-occupied"
-    );
+  turn() {
+    if (this.turnIsPlayer) {
+      this.playerChoice();
+    } else {
+      this.aiChoice();
+    }
+  }
+
+  playerChoice() {
+    const cells = document.querySelectorAll("#aiGameboard > .cell");
     let row;
     let column;
     let boardHTML;
-    let gameboardTurn = this.turnIsPlayer ? this.player : this.ai;
 
     cells.forEach((square) => {
       square.addEventListener("click", () => {
         row = square.getAttribute("data-row");
         column = square.getAttribute("data-column");
         boardHTML = square.parentElement.id;
-        // console.log(square.parentElement.id);
-        console.log(square);
-        console.log(`[${row}, ${column}]`);
-
-        this.evaluateAttack(row, column, gameboardTurn, boardHTML);
-        // square.removeEventListener("click", handler);
+        this.evaluateAttack(row, column, this.ai, boardHTML);
       });
     });
   }
 
-  evaluateAttack(row, column, turn, boardHTML) {
+  aiChoice() {
+    let row = Math.floor(Math.random() * 10);
+    let column = Math.floor(Math.random() * 10);
+    const board = this.player;
+    const boardHTML = "playerGameboard";
+
+    while (board.gameboard.squaresSelected.has(`${row}-${column}`)) {
+      row = Math.floor(Math.random() * 10);
+      column = Math.floor(Math.random() * 10);
+    }
+
+    this.evaluateAttack(row, column, board, boardHTML);
+  }
+
+  evaluateAttack(row, column, gameboardAttacked, boardHTML) {
     let hitOrMiss;
     let ship;
 
     // elinate ability to click squares more than once
-    if (turn.gameboard.squaresSelected.has(`${row}-${column}`)) {
-      return;
+    if (gameboardAttacked.gameboard.squaresSelected.has(`${row}-${column}`)) {
+      return false;
     } else {
-      turn.gameboard.squaresSelected.add(`${row}-${column}`);
+      gameboardAttacked.gameboard.squaresSelected.add(`${row}-${column}`);
     }
 
-    if (turn.gameboard.board[row][column] !== null) {
-      ship = turn.gameboard.board[row][column];
+    if (gameboardAttacked.gameboard.board[row][column] !== null) {
+      ship = gameboardAttacked.gameboard.board[row][column];
       hitOrMiss = "hit";
     } else {
       hitOrMiss = "miss";
     }
-    console.log(hitOrMiss);
 
     if (hitOrMiss == "hit") {
-      const shipHit = turn.gameboard.positions[ship];
+      const shipHit = gameboardAttacked.gameboard.positions[ship];
       shipHit.hit();
-      console.log(shipHit);
+      // are all ships sunk?
+      if (shipHit.isSunk()) {
+        console.log(`${shipHit.shipType} is sunk!`);
+        gameboardAttacked.gameboard.sunkShips.add(shipHit.shipType);
+      }
     }
 
-    // DOM events
+    // // DOM events
     recordAttack(row, column, boardHTML, hitOrMiss);
+
+    // switch turns unless player or AI wins
+    if (gameboardAttacked.gameboard.sunkShips.size == 5) {
+      this.endGame();
+    } else {
+      this.turnIsPlayer = !this.turnIsPlayer;
+      this.turn();
+    }
+  }
+
+  endGame() {
+    const winner = this.turnIsPlayer ? "Player" : "AI";
+    const winnerClass = this.turnIsPlayer ? this.player : this.ai;
+    const winnerNumberOfMoves = winnerClass.gameboard.squaresSelected.size;
+    const loserClass = this.turnIsPlayer ? this.ai : this.player;
+    const loserNumberOfMoves = loserClass.gameboard.squaresSelected.size;
+    console.log(`${winner} WINS!`);
+    createModal(winner, winnerNumberOfMoves, loserNumberOfMoves);
   }
 }
