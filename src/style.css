@@ -7,7 +7,7 @@ body {
 .content {
   height: 80vh;
   display: grid;
-  grid-template-columns: 40% 20% 40%;
+  grid-template-columns: 2fr 1fr 2fr;
   grid-template-rows: 100%;
 }
 
@@ -21,11 +21,11 @@ body {
   grid-template-rows: 20% 60% 20%;
 }
 
-#shipyard {
+#shipyard-container {
   grid-column: 2;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows: 20% 60% 20%;
 }
 
 #ai-side {
@@ -54,6 +54,14 @@ body {
 
 .cell {
   border: 1px solid darkgrey;
+}
+
+#shipyard {
+  grid-row: 2;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 }
 
 .ship {
@@ -110,18 +118,34 @@ body {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 50% auto; /* 50% from the top and centered */
+  margin: 25% auto; /* 50% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
+  border-radius: 4px;
   width: 80%; /* Could be more or less, depending on screen size */
+  height: 25%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 
-/* The Close Button */
+.modal-content > p {
+  grid-row: 1;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* The Button */
 #new-game {
-  color: #aaa;
-  float: right;
+  grid-row: 2;
+  background-color: #008cba;
+  color: white;
+  border-radius: 8px;
   font-size: 28px;
   font-weight: bold;
+  width: 15%;
+  padding: 8px;
+  margin: auto;
 }
 
 #new-game:hover,

@@ -9,6 +9,7 @@ function createDOMLayout() {
   const aiHeader = document.createElement("div");
   const playerGameboard = document.createElement("div");
   const aiGameboard = document.createElement("div");
+  const shipyardContainer = document.createElement("div");
   const shipyard = document.createElement("div");
 
   // assign classes and ids
@@ -26,16 +27,18 @@ function createDOMLayout() {
   aiHeader.setAttribute("id", "ai-header");
   aiGameboard.classList.add("gameboard");
   aiGameboard.setAttribute("id", "aiGameboard");
+  shipyardContainer.setAttribute("id", "shipyard-container");
   shipyard.setAttribute("id", "shipyard");
 
   // set DOM structure
   document.body.appendChild(header);
   document.body.appendChild(content);
   content.appendChild(playerSide);
+  content.appendChild(shipyardContainer);
   content.appendChild(aiSide);
-  content.appendChild(shipyard);
   playerSide.appendChild(playerHeader);
   playerSide.appendChild(playerGameboard);
+  shipyardContainer.appendChild(shipyard);
   aiSide.appendChild(aiHeader);
   aiSide.appendChild(aiGameboard);
 }
@@ -89,6 +92,7 @@ function recordAttack(row, column, board, hitOrMiss) {
 function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
   const modal = document.createElement("div");
   const modalContent = document.createElement("div");
+  const modalWinner = document.createElement("p");
   const newGameButton = document.createElement("button");
 
   modal.setAttribute("id", "myModal");
@@ -98,7 +102,9 @@ function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
 
   document.body.appendChild(modal);
   modal.appendChild(modalContent);
+  modalContent.appendChild(modalWinner);
   modalContent.appendChild(newGameButton);
+  newGameButton.textContent = "New Game";
 
   modal.style.display = "block";
 
@@ -106,6 +112,8 @@ function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
     modal.style.display = "none";
     location.reload();
   };
+
+  modalWinner.textContent = `${winner} wins in ${winnerNumberOfMoves} moves!`;
 }
 
 export {

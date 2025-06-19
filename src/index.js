@@ -7,7 +7,8 @@ if (process.env.NODE_ENV !== "production") {
 import "./style.css";
 import Player from "./player.js";
 import PlayGame from "./game.js";
-import { createDOMLayout, createSquares } from "./dom.js";
+import { createDOMLayout, createShips, createSquares } from "./dom.js";
+import Ship from "./ship.js";
 
 // Set up html containers
 createDOMLayout();
@@ -17,6 +18,9 @@ const playerGameboard = document.getElementById("playerGameboard");
 const aiGameboard = document.getElementById("aiGameboard");
 createSquares(playerGameboard);
 createSquares(aiGameboard);
+
+const carrier = new Ship("carrier");
+createShips(carrier.shipType, carrier.length);
 
 // Create players
 const player = new Player(false);
