@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Micro-5";
+  src: url("./assets/Micro5-Regular.otf");
+  font-display: swap;
+}
+
 body {
   width: 70%;
   margin-left: auto;
@@ -38,6 +44,14 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+}
+
+.gameboard-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Micro-5", sans-serif;
+  font-size: 4rem;
 }
 
 #playerGameboard {

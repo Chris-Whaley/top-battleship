@@ -1,4 +1,4 @@
-import { recordAttack, createModal } from "./dom.js";
+import { recordAttack, createEndGameModal } from "./dom.js";
 
 export default class PlayGame {
   constructor(player, ai) {
@@ -92,6 +92,6 @@ export default class PlayGame {
     const loserClass = this.turnIsPlayer ? this.ai : this.player;
     const loserNumberOfMoves = loserClass.gameboard.squaresSelected.size;
     console.log(`${winner} WINS!`);
-    createModal(winner, winnerNumberOfMoves, loserNumberOfMoves);
+    createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves);
   }
 }

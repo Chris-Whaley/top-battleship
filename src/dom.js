@@ -5,8 +5,8 @@ function createDOMLayout() {
   const content = document.createElement("div");
   const playerSide = document.createElement("div");
   const aiSide = document.createElement("div");
-  const playerHeader = document.createElement("div");
-  const aiHeader = document.createElement("div");
+  const playerHeader = document.createElement("h2");
+  const aiHeader = document.createElement("h2");
   const playerGameboard = document.createElement("div");
   const aiGameboard = document.createElement("div");
   const shipyardContainer = document.createElement("div");
@@ -41,6 +41,10 @@ function createDOMLayout() {
   shipyardContainer.appendChild(shipyard);
   aiSide.appendChild(aiHeader);
   aiSide.appendChild(aiGameboard);
+
+  // include text and headers
+  playerHeader.textContent = "Player";
+  aiHeader.textContent = "Computer";
 }
 
 function createSquares(board) {
@@ -89,7 +93,7 @@ function recordAttack(row, column, board, hitOrMiss) {
   }
 }
 
-function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
+function createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
   const modal = document.createElement("div");
   const modalContent = document.createElement("div");
   const modalWinner = document.createElement("p");
@@ -116,10 +120,40 @@ function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
   modalWinner.textContent = `${winner} wins in ${winnerNumberOfMoves} moves!`;
 }
 
+function createInitializeModal() {
+  const modal = document.createElement("dialog");
+  const modalForm = document.createElement("form");
+  const modalContent = document.createElement("div");
+  const modalWinner = document.createElement("p");
+  const newGameButton = document.createElement("button");
+
+  modal.setAttribute("id", "myModal");
+  modal.classList.add("modal");
+  modalContent.classList.add("modal-content");
+  newGameButton.setAttribute("id", "new-game");
+
+  // modal.showModal();
+
+  // document.body.appendChild(modal);
+  // modal.appendChild(modalContent);
+  // modalContent.appendChild(modalWinner);
+  // modalContent.appendChild(newGameButton);
+  // newGameButton.textContent = "New Game";
+
+  // modal.style.display = "block";
+
+  // newGameButton.onclick = function () {
+  //   modal.style.display = "none";
+  // };
+
+  // modalWinner.textContent = `${winner} wins in ${winnerNumberOfMoves} moves!`;
+}
+
 export {
   createDOMLayout,
   createSquares,
   createShips,
   recordAttack,
-  createModal,
+  createEndGameModal,
+  createInitializeModal,
 };
