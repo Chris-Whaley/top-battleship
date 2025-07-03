@@ -19,6 +19,9 @@ import Ship from "./ship.js";
 createDOMLayout();
 createInitializeModal();
 
+const playerName = localStorage.getItem("username");
+console.log(playerName);
+
 // Feed each html gameboard into a function to create the grid
 const playerGameboard = document.getElementById("playerGameboard");
 const aiGameboard = document.getElementById("aiGameboard");
