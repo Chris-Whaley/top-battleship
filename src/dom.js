@@ -5,10 +5,11 @@ function createDOMLayout() {
   const content = document.createElement("div");
   const playerSide = document.createElement("div");
   const aiSide = document.createElement("div");
-  const playerHeader = document.createElement("div");
-  const aiHeader = document.createElement("div");
+  const playerHeader = document.createElement("h2");
+  const aiHeader = document.createElement("h2");
   const playerGameboard = document.createElement("div");
   const aiGameboard = document.createElement("div");
+  const shipyardContainer = document.createElement("div");
   const shipyard = document.createElement("div");
 
   // assign classes and ids
@@ -26,18 +27,24 @@ function createDOMLayout() {
   aiHeader.setAttribute("id", "ai-header");
   aiGameboard.classList.add("gameboard");
   aiGameboard.setAttribute("id", "aiGameboard");
+  shipyardContainer.setAttribute("id", "shipyard-container");
   shipyard.setAttribute("id", "shipyard");
 
   // set DOM structure
   document.body.appendChild(header);
   document.body.appendChild(content);
   content.appendChild(playerSide);
+  content.appendChild(shipyardContainer);
   content.appendChild(aiSide);
-  content.appendChild(shipyard);
   playerSide.appendChild(playerHeader);
   playerSide.appendChild(playerGameboard);
+  shipyardContainer.appendChild(shipyard);
   aiSide.appendChild(aiHeader);
   aiSide.appendChild(aiGameboard);
+
+  // include text and headers
+  playerHeader.textContent = "Player";
+  aiHeader.textContent = "Computer";
 }
 
 function createSquares(board) {
@@ -80,15 +87,18 @@ function recordAttack(row, column, board, hitOrMiss) {
   cell.setAttribute("class", "cell-occupied");
 
   if (hitOrMiss == "hit") {
-    cell.style.setProperty("background-color", "blue");
-  } else if (hitOrMiss == "miss") {
     cell.style.setProperty("background-color", "red");
+  } else if (hitOrMiss == "miss") {
+    cell.style.setProperty("background-color", "white");
   }
+
+  cell.style.setProperty("border", "1px solid darkgrey");
 }
 
-function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
+function createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
   const modal = document.createElement("div");
   const modalContent = document.createElement("div");
+  const modalWinner = document.createElement("p");
   const newGameButton = document.createElement("button");
 
   modal.setAttribute("id", "myModal");
@@ -98,7 +108,9 @@ function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
 
   document.body.appendChild(modal);
   modal.appendChild(modalContent);
+  modalContent.appendChild(modalWinner);
   modalContent.appendChild(newGameButton);
+  newGameButton.textContent = "New Game";
 
   modal.style.display = "block";
 
@@ -106,6 +118,59 @@ function createModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
     modal.style.display = "none";
     location.reload();
   };
+
+  modalWinner.textContent = `${winner} wins in ${winnerNumberOfMoves} moves!`;
+}
+
+function createInitializeModal() {
+  const overlay = document.createElement("div");
+  const modal = document.createElement("div");
+  const modalForm = document.createElement("form");
+  const modalContent = document.createElement("div");
+  const modalTitle = document.createElement("h2");
+  const inputName = document.createElement("input");
+  const inputNameLabel = document.createElement("label");
+  const submitNameButton = document.createElement("button");
+
+  // IDs and classes
+  overlay.setAttribute("id", "overlay");
+  modal.setAttribute("id", "welcome-modal");
+  modal.classList.add("modal");
+  modalForm.setAttribute("id", "modal-form");
+  modalContent.classList.add("modal-content");
+  submitNameButton.setAttribute("id", "submit-name");
+  submitNameButton.setAttribute("type", "submit");
+
+  // Form particulars
+  inputName.setAttribute("type", "text");
+  inputName.setAttribute("placeholder", "Admiral");
+  inputName.setAttribute("id", "username");
+  inputName.setAttribute("autocomplete", "off");
+  inputNameLabel.setAttribute("for", "username");
+  modalForm.setAttribute("method", "post");
+
+  // construct DOM tree
+  document.body.appendChild(modal);
+  modal.appendChild(modalForm);
+  modalForm.appendChild(modalContent);
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(inputNameLabel);
+  modalContent.appendChild(inputName);
+  modalContent.appendChild(submitNameButton);
+
+  // text
+  modalTitle.textContent = "Identify yourself, Sailor!";
+  inputNameLabel.textContent = "Name";
+  submitNameButton.textContent = "Submit";
+
+  modal.style.display = "block";
+
+  modalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const playerName = inputName.value;
+    console.log(playerName);
+    modal.style.display = "none";
+  });
 }
 
 export {
@@ -113,5 +178,6 @@ export {
   createSquares,
   createShips,
   recordAttack,
-  createModal,
+  createEndGameModal,
+  createInitializeModal,
 };

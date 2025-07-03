@@ -12,7 +12,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    assetModuleFilename: "img/[name][hash][ext][query]",
+    assetModuleFilename: "assets/[name][ext]",
     clean: true,
   },
   optimization: {
@@ -36,6 +36,10 @@ module.exports = {
       },
       {
         test: /.(png|svg|jpg|jpeg|gif|mp3)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: "asset/resource",
       },
       {
