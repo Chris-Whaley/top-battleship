@@ -87,10 +87,12 @@ function recordAttack(row, column, board, hitOrMiss) {
   cell.setAttribute("class", "cell-occupied");
 
   if (hitOrMiss == "hit") {
-    cell.style.setProperty("background-color", "blue");
-  } else if (hitOrMiss == "miss") {
     cell.style.setProperty("background-color", "red");
+  } else if (hitOrMiss == "miss") {
+    cell.style.setProperty("background-color", "white");
   }
+
+  cell.style.setProperty("border", "1px solid darkgrey");
 }
 
 function createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
