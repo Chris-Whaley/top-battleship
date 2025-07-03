@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Micro-5";
-  src: url("./assets/Micro5-Regular.otf");
+  font-family: "Tiny-5";
+  src: url("./assets/Tiny5-Regular.ttf");
   font-display: swap;
 }
 
@@ -61,7 +61,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Micro-5", sans-serif;
+  font-family: "Tiny-5", sans-serif;
   font-size: 4rem;
 }
 
@@ -143,21 +143,21 @@ body {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 25% auto; /* 50% from the top and centered */
+  margin: 10% auto; /* 50% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   border-radius: 4px;
-  width: 80%; /* Could be more or less, depending on screen size */
-  height: 25%;
+  width: 50%; /* Could be more or less, depending on screen size */
+  height: 50%;
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
 .modal-content > p {
   grid-row: 1;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 5rem;
   text-align: center;
+  font-family: "Tiny-5";
 }
 
 /* The Button */
@@ -168,7 +168,7 @@ body {
   border-radius: 8px;
   font-size: 28px;
   font-weight: bold;
-  width: 15%;
+  width: 25%;
   padding: 8px;
   margin: auto;
 }
