@@ -121,32 +121,54 @@ function createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
 }
 
 function createInitializeModal() {
-  const modal = document.createElement("dialog");
+  const overlay = document.createElement("div");
+  const modal = document.createElement("div");
   const modalForm = document.createElement("form");
   const modalContent = document.createElement("div");
-  const modalWinner = document.createElement("p");
-  const newGameButton = document.createElement("button");
+  const modalTitle = document.createElement("h2");
+  const inputName = document.createElement("input");
+  const inputNameLabel = document.createElement("label");
+  const submitNameButton = document.createElement("button");
 
-  modal.setAttribute("id", "myModal");
+  // IDs and classes
+  overlay.setAttribute("id", "overlay");
+  modal.setAttribute("id", "welcome-modal");
   modal.classList.add("modal");
+  modalForm.setAttribute("id", "modal-form");
   modalContent.classList.add("modal-content");
-  newGameButton.setAttribute("id", "new-game");
+  submitNameButton.setAttribute("id", "submit-name");
+  submitNameButton.setAttribute("type", "submit");
 
-  // modal.showModal();
+  // Form particulars
+  inputName.setAttribute("type", "text");
+  inputName.setAttribute("placeholder", "Admiral");
+  inputName.setAttribute("id", "username");
+  inputName.setAttribute("autocomplete", "off");
+  inputNameLabel.setAttribute("for", "username");
+  modalForm.setAttribute("method", "post");
 
-  // document.body.appendChild(modal);
-  // modal.appendChild(modalContent);
-  // modalContent.appendChild(modalWinner);
-  // modalContent.appendChild(newGameButton);
-  // newGameButton.textContent = "New Game";
+  // construct DOM tree
+  document.body.appendChild(modal);
+  modal.appendChild(modalForm);
+  modalForm.appendChild(modalContent);
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(inputNameLabel);
+  modalContent.appendChild(inputName);
+  modalContent.appendChild(submitNameButton);
 
-  // modal.style.display = "block";
+  // text
+  modalTitle.textContent = "Identify yourself, Sailor!";
+  inputNameLabel.textContent = "Name";
+  submitNameButton.textContent = "Submit";
 
-  // newGameButton.onclick = function () {
-  //   modal.style.display = "none";
-  // };
+  modal.style.display = "block";
 
-  // modalWinner.textContent = `${winner} wins in ${winnerNumberOfMoves} moves!`;
+  modalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const playerName = inputName.value;
+    console.log(playerName);
+    modal.style.display = "none";
+  });
 }
 
 export {
