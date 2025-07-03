@@ -116,6 +116,7 @@ function createEndGameModal(winner, winnerNumberOfMoves, loserNumberOfMoves) {
 
   newGameButton.onclick = function () {
     modal.style.display = "none";
+    localStorage.removeItem("username");
     location.reload();
   };
 
@@ -167,8 +168,8 @@ function createInitializeModal() {
 
   modalForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const playerName = inputName.value;
-    console.log(playerName);
+    // const playerName = inputName.value;
+    localStorage.setItem("username", inputName.value);
     modal.style.display = "none";
   });
 }
