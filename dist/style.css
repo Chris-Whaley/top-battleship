@@ -1,0 +1,184 @@
+@font-face {
+  font-family: "Tiny-5";
+  src: url(assets/Tiny5-Regular.ttf);
+  font-display: swap;
+}
+
+body {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  /* background-color: rgba(255, 255, 255, 0.6); */
+  /* background-blend-mode: lighten; */
+}
+
+.content {
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-template-rows: 100%;
+}
+
+.content-side {
+  height: 100%;
+}
+
+#player-side {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+#shipyard-container {
+  grid-column: 2;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+#ai-side {
+  grid-column: 3;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  color: rgb(255, 255, 255);
+  /* background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("./assets/ocean-lightened.JPG"); */
+  background-image: url(assets/ocean-lightened-small.png);
+  /* opacity: 0.5; */
+}
+
+.gameboard-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tiny-5", sans-serif;
+  font-size: 4rem;
+}
+
+#playerGameboard {
+  /* width: 50vw; */
+  /* grid-area: playerGameboard; */
+  grid-row: 2;
+}
+
+#aiGameboard {
+  /* width: 50vw; */
+  /* grid-area: aiGameboard; */
+  grid-row: 2;
+}
+
+.cell {
+  border: 1px solid darkgrey;
+}
+
+#shipyard {
+  grid-row: 2;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.ship {
+  display: grid;
+}
+
+#carrier {
+  grid-column: 2;
+  grid-row: 1 / 6;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+
+#battleship {
+  grid-column: 2;
+  grid-row: 7 / 11;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+
+#destroyer {
+  grid-column: 4;
+  grid-row: 1 / 4;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+#submarine {
+  grid-column: 4;
+  grid-row: 5 / 8;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+#patrolboat {
+  grid-column: 4;
+  grid-row: 9 / 11;
+  background-color: lightcoral;
+  opacity: 0.75;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 50% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  width: 50%; /* Could be more or less, depending on screen size */
+  height: 50%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.modal-content > p {
+  grid-row: 1;
+  font-size: 5rem;
+  text-align: center;
+  font-family: "Tiny-5";
+}
+
+/* The Button */
+#new-game {
+  grid-row: 2;
+  background-color: #008cba;
+  color: white;
+  border-radius: 8px;
+  font-size: 28px;
+  font-weight: bold;
+  width: 25%;
+  padding: 8px;
+  margin: auto;
+}
+
+#new-game:hover,
+#new-game:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/*# sourceMappingURL=style.css.map*/
