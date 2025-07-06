@@ -165,13 +165,6 @@ function createInitializeModal() {
   submitNameButton.textContent = "Submit";
 
   modal.style.display = "block";
-
-  modalForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    // const playerName = inputName.value;
-    localStorage.setItem("username", inputName.value);
-    modal.style.display = "none";
-  });
 }
 
 export {

@@ -19,9 +19,6 @@ import Ship from "./ship.js";
 createDOMLayout();
 createInitializeModal();
 
-const playerName = localStorage.getItem("username");
-console.log(playerName);
-
 // Feed each html gameboard into a function to create the grid
 const playerGameboard = document.getElementById("playerGameboard");
 const aiGameboard = document.getElementById("aiGameboard");
@@ -31,16 +28,25 @@ createSquares(aiGameboard);
 const carrier = new Ship("carrier");
 createShips(carrier.shipType, carrier.length);
 
-// Create players
-const player = new Player(false);
-const ai = new Player(false);
+const modal = document.getElementById("welcome-modal");
+const modalForm = document.getElementById("modal-form");
+const inputName = document.getElementById("username");
 
-// Create and start game
-const game = new PlayGame(player, ai);
-game.turn();
-// console.log(game.player.gameboard);
-// console.log(game.ai.gameboard);
+// Start game
+modalForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  localStorage.setItem("username", inputName.value);
+  const playerName = localStorage.getItem("username");
+
+  const player = new Player(playerName, false);
+  const ai = new Player((realPlayer = false));
+
+  // Create and start game
+  const game = new PlayGame(player, ai);
+  game.turn();
+  modal.style.display = "none";
+});
 
 // TODO: make AI guess more accurate when it hits a ship
-// TODO: create modal for player to enter name
+
 // TODO: create draggable ships

@@ -38,3 +38,18 @@ it("Player places ship, and respective ship is missed by opponent", () => {
   player.gameboard.positionShip(0, 0, "horizontal", "patrolboat");
   expect(player.gameboard.receiveAttack(4, 4)).toBe("miss");
 });
+
+it("Player name is recorded from input", () => {
+  const player = new Player("Captain Chris");
+  expect(player.playerName).toBe("Captain Chris");
+});
+
+it("Player name is generic name when no name is submitted in welcome modal", () => {
+  const player = new Player();
+  expect(player.playerName).toBe("Player");
+});
+
+it("Player name is AI for computer player", () => {
+  const player = new Player(null, false);
+  expect(player.playerName).toBe("AI");
+});
