@@ -39,7 +39,7 @@ modalForm.addEventListener("submit", (event) => {
   const playerName = localStorage.getItem("username");
 
   const player = new Player(playerName, false);
-  const ai = new Player((realPlayer = false));
+  const ai = new Player(null, false);
 
   // Create and start game
   const game = new PlayGame(player, ai);

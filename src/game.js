@@ -86,7 +86,8 @@ export default class PlayGame {
   }
 
   endGame() {
-    const winner = this.turnIsPlayer ? "Player" : "AI";
+    // const winner = this.turnIsPlayer ? "Player" : "AI";
+    const winner = this.turnIsPlayer ? localStorage.getItem("username") : "AI";
     const winnerClass = this.turnIsPlayer ? this.player : this.ai;
     const winnerNumberOfMoves = winnerClass.gameboard.squaresSelected.size;
     const loserClass = this.turnIsPlayer ? this.ai : this.player;
